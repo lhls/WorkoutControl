@@ -2,15 +2,15 @@
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
-COPY ["WorkoutControl.Api/WorkoutControl.Api.csproj", "./"]
+COPY ["Core/WorkoutControl.Api/WorkoutControl.Api.csproj", "./"]
 RUN dotnet restore "WorkoutControl.Api.csproj"
 
 COPY . .
-RUN dotnet build "WorkoutControl.Api/WorkoutControl.Api.csproj" -c Release -o /app/build
+RUN dotnet build "Core/WorkoutControl.Api/WorkoutControl.Api.csproj" -c Release -o /app/build
 
 # Publish stage
 FROM build AS publish
-RUN dotnet publish "WorkoutControl.Api/WorkoutControl.Api.csproj" -c Release -o /app/publish
+RUN dotnet publish "Core/WorkoutControl.Api/WorkoutControl.Api.csproj" -c Release -o /app/publish
 
 # Runtime stage
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS runtime

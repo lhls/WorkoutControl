@@ -36,3 +36,4 @@ Core/WorkoutControl.Api/Properties/launchSettings.json
 local.settings.json
 appsettings.*.Local.json
 /Core/WorkoutControl.Api/Properties/launchSettings.json
+*.sh
