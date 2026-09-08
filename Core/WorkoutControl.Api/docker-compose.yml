@@ -1,0 +1,61 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: workoutcontrolapi:dev
+    container_name: dotnet-api
+    ports:
+      - "8080:8080"
+      - "8443:8443"
+      - "4024:4024"
+      - "4711:4711"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
+      - OLLAMA_URL=http://ollama:11434
+    # bind-mount the project folder into the container for live edit during development
+    volumes:
+      - ./:/app:rw
+    networks:
+      - dotnet-network
+    depends_on:
+      - ollama
+
+  # db:
+  #   image: mcr.microsoft.com/mssql/server:2022-latest
+  #   container_name: dotnet-db
+  #   environment:
+  #     - ACCEPT_EULA=Y
+  #     - SA_PASSWORD=YourStrongPassword123!
+  #   ports:
+  #     - "1433:1433"
+  #   volumes:
+  #     - sqlserver-data:/var/opt/mssql
+  #   networks:
+  #     - dotnet-network
+  #   healthcheck:
+  #     test: ["CMD", "/opt/mssql-tools/bin/sqlcmd", "-S", "localhost", "-U", "sa", "-P", "YourStrongPassword123!", "-Q", "SELECT 1"]
+  #     interval: 10s
+  #     timeout: 5s
+  #     retries: 3
+
+  ollama:
+    image: ollama/ollama
+    container_name: ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama-data:/root/.ollama
+    networks:
+      - dotnet-network
+    environment:
+      - OLLAMA_HOST=0.0.0.0:11434
+
+volumes:
+  sqlserver-data:
+  ollama-data:
+
+networks:
+  dotnet-network:
+    driver: bridge

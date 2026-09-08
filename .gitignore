@@ -1,0 +1,38 @@
+﻿################################################################################
+# Este arquivo .gitignore foi criado automaticamente pelo Microsoft(R) Visual Studio.
+################################################################################
+
+/Core/.vs
+/Core/.vscode
+/Core/WorkoutControl.Api/bin/Debug/net10.0
+/Core/WorkoutControl.Api/obj
+
+# IDEs
+.vs/
+.vscode/
+.idea/
+
+# Build folders
+**/bin/
+**/obj/
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.ncrunch*
+
+# Test results
+TestResults/
+
+# Logs
+*.log
+
+# launchSettings (commit or ignore by team decision)
+Core/WorkoutControl.Api/Properties/launchSettings.json
+
+# Local environment / secrets
+.env
+local.settings.json
+appsettings.*.Local.json
+/Core/WorkoutControl.Api/Properties/launchSettings.json
